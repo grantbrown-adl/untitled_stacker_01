@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Platform : MonoBehaviour {
     [SerializeField] float speed;
@@ -52,8 +51,8 @@ public class Platform : MonoBehaviour {
         if (Mathf.Abs(platformDifference) >= (MoveDirection == MoveDirection.Z ? localZ : localX)) {
             previousPlatform = null;
             currentPlatform = null;
-            SceneManager.LoadScene(0);
             spawnNew = false;
+            StartCoroutine(GameManager.Instance.HandleGameOver());
             return;
         }
 
