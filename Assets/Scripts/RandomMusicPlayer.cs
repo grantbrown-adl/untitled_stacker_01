@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RandomMusicPlayer : MonoBehaviour {
-    public AudioClip[] songs; // Array to hold the songs
-    private AudioSource audioSource;
+    [SerializeField] AudioClip[] songs;
+    [SerializeField] TMP_Text text;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource sfxAudioSource;
     private List<int> songOrder;
     private int currentSongIndex = 0;
 
@@ -19,6 +22,11 @@ public class RandomMusicPlayer : MonoBehaviour {
     }
 
     void Update() {
+
+        if (Input.GetButtonDown("Jump")) {
+            PlayNextSong();
+        }
+
         if (!audioSource.isPlaying) {
             PlayNextSong();
         }
@@ -40,13 +48,19 @@ public class RandomMusicPlayer : MonoBehaviour {
 
     void PlayNextSong() {
         if (currentSongIndex >= songOrder.Count) {
-            ShuffleSongs(); // Reshuffle if we reached the end of the playlist
+            ShuffleSongs();
             currentSongIndex = 0;
         }
 
         int songToPlayIndex = songOrder[currentSongIndex];
         audioSource.clip = songs[songToPlayIndex];
+        text.text = songs[songToPlayIndex].name;
         audioSource.Play();
         currentSongIndex++;
+    }
+
+    public void PlayClip(AudioClip clip) {
+        sfxAudioSource.clip = clip;
+        sfxAudioSource.Play();
     }
 }

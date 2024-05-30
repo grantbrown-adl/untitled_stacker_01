@@ -31,7 +31,7 @@ public class WaveText : MonoBehaviour {
 
             Vector3[] vertices = textInfo.meshInfo[charInfo.materialReferenceIndex].vertices;
 
-            float waveValue = Mathf.Sin(Time.time * frequency + i * 0.5f) * amplitude;
+            float waveValue = Mathf.Sin(Time.unscaledTime * frequency + i * 0.5f) * amplitude;
             vertices[vertexIndex + 0].y += waveValue;
             vertices[vertexIndex + 1].y += waveValue;
             vertices[vertexIndex + 2].y += waveValue;

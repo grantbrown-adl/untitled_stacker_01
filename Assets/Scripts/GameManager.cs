@@ -12,18 +12,23 @@ public class GameManager : MonoBehaviour {
     [SerializeField] PlatformSpawner currentSpawner;
     [SerializeField] Leaderboard leaderboard;
     [SerializeField] GameObject leaderboardPanel;
+    [SerializeField] Camera mainCamera;
+    [SerializeField] int spawnedPlatforms;
 
     [Header("Score Shit")]
     [SerializeField] float currentScore;
     [SerializeField] float multiplier;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] GameObject loadingText;
+    [SerializeField] RandomMusicPlayer audioPlayer;
+    [SerializeField] AudioClip audioClip;
 
     private static GameManager _instance;
 
     public static GameManager Instance { get => _instance; set => _instance = value; }
     public float Score { get => currentScore; set => UpdateScore(value); }
     public bool Loading { get => loading; set => SetLoading(value); }
+    public Camera MainCamera { get => mainCamera; set => mainCamera = value; }
 
     private void OnEnable() {
         if (_instance != null && _instance != this) Destroy(gameObject);
@@ -46,6 +51,7 @@ public class GameManager : MonoBehaviour {
         spawners = FindObjectsOfType<PlatformSpawner>();
         scoreText.text = "Click to Play";
         leaderboardPanel.SetActive(false);
+        mainCamera = Camera.main;
     }
     private void Update() {
         HandleInput();
@@ -56,6 +62,8 @@ public class GameManager : MonoBehaviour {
         currentScore *= 100;
         canHandleInput = false;
         yield return StartCoroutine(leaderboard.SubmitScoreRoutine((int)currentScore));
+        yield return StartCoroutine(leaderboard.FetchTopHighScores());
+        yield return StartCoroutine(leaderboard.FetchPlayerScore());
         leaderboardPanel.SetActive(true);
     }
 
@@ -70,8 +78,17 @@ public class GameManager : MonoBehaviour {
         if (!canHandleInput) { return; }
 
         if (Input.GetButtonDown("Fire1")) {
-            if (initialClick) { scoreText.text = $"Score: {currentScore:F2}"; }
+            if (loading) return;
             if (Platform.CurrentPlatform == null) return;
+
+            if (!initialClick) audioPlayer.PlayClip(audioClip);
+            if (initialClick) {
+                scoreText.text = $"Score: {currentScore:F2}";
+                initialClick = false;
+            }
+
+            spawnedPlatforms++;
+            if (spawnedPlatforms % 3 == 0) mainCamera.fieldOfView++;
 
             Platform.CurrentPlatform.StopPlatform();
             currentSpawner = spawners[spawnerIndex];

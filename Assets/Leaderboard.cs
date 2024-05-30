@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 public class Leaderboard : MonoBehaviour {
-    static string leaderboard_key = "global_leaderboard"; // 22647
+    static string leaderboard_key = "stacker_leaderboard_live"; // 22647
     [Header("Top 10")]
     [SerializeField] TextMeshProUGUI playerRank;
     [SerializeField] TextMeshProUGUI playerNames;
@@ -47,14 +47,14 @@ public class Leaderboard : MonoBehaviour {
                 Debug.Log("Fetched score list");
 
                 LootLockerLeaderboardMember[] members = response.items;
-
-                foreach (var member in members) {
-                    string displayName = member.player.name != "" ? member.player.name : member.player.id.ToString();
-                    tempRank += $"{member.rank}. \n";
-                    tempNames += $"{displayName}\n";
-                    tempScores += $"{member.score / 100.0f}\n";
+                if (members != null) {
+                    foreach (var member in members) {
+                        string displayName = member.player.name != "" ? member.player.name : member.player.id.ToString();
+                        tempRank += $"{member.rank}. \n";
+                        tempNames += $"{displayName}\n";
+                        tempScores += $"{member.score / 100.0f}\n";
+                    }
                 }
-
             } else {
                 Debug.LogWarning($"Unable to fetch score list: {response.errorData}");
             }
@@ -79,12 +79,12 @@ public class Leaderboard : MonoBehaviour {
 
             if (response.success) {
                 Debug.Log($"Fetched score for player: {playerId}");
-
-
-                string displayName = response.player.name != "" ? response.player.name : response.player.id.ToString();
-                tempRank += $"{response.rank}. ";
-                tempName += $"{displayName}";
-                tempScore += $"{response.score / 100.0f}";
+                if (response.player != null) {
+                    string displayName = response.player.name != "" ? response.player.name : response.player.id.ToString();
+                    tempRank += $"{response.rank}. ";
+                    tempName += $"{displayName}";
+                    tempScore += $"{response.score / 100.0f}";
+                }
 
             } else {
                 Debug.LogWarning($"Unable to fetch score for player: {response.errorData}");
