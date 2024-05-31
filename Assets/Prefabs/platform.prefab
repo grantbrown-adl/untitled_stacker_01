@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1942409579817075988}
   - component: {fileID: 2591678216040549972}
   - component: {fileID: 3492919714971250143}
+  - component: {fileID: 7980937330220311558}
   m_Layer: 0
   m_Name: platform
   m_TagString: Untagged
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 38f4ad74656052640b78342f3a46c6df, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,5 +123,21 @@ MonoBehaviour:
   platformDifference: 0
   isStopped: 0
   initialCube: 0
+  spawnNew: 0
   fallingPiece: {fileID: 6870503598949161970, guid: 28fe647cca7759643a7e520cbc107e5a,
     type: 3}
+--- !u!114 &7980937330220311558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6870503598949161970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c312a33b089938479773be06238a76e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceSpeed: 100
+  fallForce: 20
+  stiffness: 0.1

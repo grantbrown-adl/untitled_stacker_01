@@ -6,6 +6,7 @@ public class Platform : MonoBehaviour {
     [SerializeField] bool isStopped;
     [SerializeField] bool initialCube = false;
     [SerializeField] bool spawnNew;
+    [SerializeField] bool negativeMoveDirection;
     [SerializeField] GameObject fallingPiece;
 
     static Platform previousPlatform;
@@ -14,6 +15,8 @@ public class Platform : MonoBehaviour {
     public static Platform PreviousPlatform { get => previousPlatform; private set => previousPlatform = value; }
     public MoveDirection MoveDirection { get; set; }
     public bool SpawnNew { get => spawnNew; set => spawnNew = value; }
+    public bool IsStopped { get => isStopped; set => isStopped = value; }
+    public bool NegativeMoveDirection { get => negativeMoveDirection; set => negativeMoveDirection = value; }
 
     private void Awake() {
         if (previousPlatform == null) { previousPlatform = this; }
@@ -34,8 +37,16 @@ public class Platform : MonoBehaviour {
 
     private void Update() {
         if (isStopped) { return; }
-        transform.position += speed * Time.deltaTime * (MoveDirection == MoveDirection.X ? transform.right : transform.forward);
+        if (GameManager.Instance.CameraTransitioning) { return; }
+        MovePlatform();
 
+    }
+
+    private void MovePlatform() {
+        Vector3 xDirection = negativeMoveDirection ? -transform.right : transform.right;
+        Vector3 zDirection = negativeMoveDirection ? -transform.forward : transform.forward;
+        Vector3 direction = (MoveDirection == MoveDirection.X ? xDirection : zDirection);
+        transform.position += speed * Time.deltaTime * direction;
     }
 
     public void StopPlatform() {
@@ -62,6 +73,7 @@ public class Platform : MonoBehaviour {
     }
 
     void UpdateScore(float score) {
+        GameManager.Instance.CurrentHeight++;
         GameManager.Instance.Score = score;
     }
 

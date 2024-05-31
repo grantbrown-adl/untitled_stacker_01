@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2591678216040549972}
   - component: {fileID: 8214235184656367300}
   - component: {fileID: 3447353022923084270}
+  - component: {fileID: -694632616384729836}
   m_Layer: 0
   m_Name: falling_piece
   m_TagString: Untagged
@@ -147,3 +148,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 2
+--- !u!114 &-694632616384729836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6870503598949161970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c312a33b089938479773be06238a76e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceSpeed: 20
+  fallForce: 10
+  stiffness: 0.5

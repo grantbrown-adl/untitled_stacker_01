@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8884731385178773061}
   - component: {fileID: 2279837683991636573}
   - component: {fileID: 9209573344838181355}
+  - component: {fileID: -8573017827434454417}
   m_Layer: 0
   m_Name: centre_cube
   m_TagString: Untagged
@@ -122,5 +123,21 @@ MonoBehaviour:
   platformDifference: 0
   isStopped: 0
   initialCube: 1
+  spawnNew: 0
   fallingPiece: {fileID: 6870503598949161970, guid: 28fe647cca7759643a7e520cbc107e5a,
     type: 3}
+--- !u!114 &-8573017827434454417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4478848244796554368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c312a33b089938479773be06238a76e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceSpeed: 500
+  fallForce: 5
+  stiffness: 0.5
