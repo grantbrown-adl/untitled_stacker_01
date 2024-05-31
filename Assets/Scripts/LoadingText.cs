@@ -10,7 +10,6 @@ public class LoadingTextEffect : MonoBehaviour {
     [SerializeField] char suffix = '.';
 
     void Start() {
-        // Cache the TextMeshPro component
         loadingText = GetComponent<TMP_Text>();
         StartCoroutine(Animate());
     }

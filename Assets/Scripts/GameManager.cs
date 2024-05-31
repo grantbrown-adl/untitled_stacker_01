@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour {
     private void Awake() {
         spawners = FindObjectsOfType<PlatformSpawner>();
         scoreText.text = "Click to Play";
-        heightText.text = "good luck";
+        heightText.text = "Good luck";
         leaderboardPanel.SetActive(false);
         mainCamera = Camera.main;
     }
@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour {
             if (!initialClick) audioPlayer.PlayClip(audioClip);
             if (initialClick) {
                 scoreText.text = $"Score: {currentScore:F2}";
+                heightText.text = $"Height: {currentHeight}";
                 initialClick = false;
             }
 

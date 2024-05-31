@@ -52,7 +52,7 @@ public class MusicPlayer : MonoBehaviour {
             if (paused) audioSource.Pause();
             else audioSource.Play();
 
-            songText.text = paused ? pausedText : audioSource.clip.name;
+            SetMusicText();
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow)) {
@@ -101,11 +101,15 @@ public class MusicPlayer : MonoBehaviour {
 
         int songToPlayIndex = songOrder[currentSongIndex];
         audioSource.clip = songs[songToPlayIndex];
-        string suffix = audioSource.clip.name.Contains("Far The Days Come") ? "" : oneManSymphony;
-        songText.text = paused ? pausedText : audioSource.clip.name + suffix;
+        SetMusicText();
         songTime = audioSource.clip.length;
         audioSource.Play();
         currentSongIndex++;
+    }
+
+    private void SetMusicText() {
+        string suffix = audioSource.clip.name.Contains("Far The Days Come") ? "" : oneManSymphony;
+        songText.text = paused ? pausedText : audioSource.clip.name + suffix;
     }
 
     public void PlayClip(AudioClip clip) {
